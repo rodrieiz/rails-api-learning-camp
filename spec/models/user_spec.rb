@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
-  before(:all) do 
-    @user1 = create(:user)
-  end
+  let!(:user) { create(:user) }
 
   it "valid user" do
     expect(@user1).to be_valid
