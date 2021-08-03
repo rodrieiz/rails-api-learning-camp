@@ -45,6 +45,7 @@ group :development, :test do
   # For debug
   gem 'pry'
 
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 group :development do
