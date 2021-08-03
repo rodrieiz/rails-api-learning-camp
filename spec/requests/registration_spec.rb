@@ -2,20 +2,20 @@ require 'rails_helper'
 
 describe 'POST registration', type: :request do
     
-  let(:params) do {
-    user:
-      {
-        email: 'test1@test.com.uy',
-        gender: 'Female',
-        password: 'abcd1234',
-        password_confirmation: 'abcd1234'
-      }
-    }
-  end
-
   context 'with correct params' do
 
-    before {post user_registration_path, params: params, as: :json}
+    let(:params) do {
+      user:
+        {
+          email: 'test1@test.com.uy',
+          gender: 'Female',
+          password: 'abcd1234',
+          password_confirmation: 'abcd1234'
+        }
+      }
+    end
+
+    before { post user_registration_path, params: params, as: :json }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -27,4 +27,24 @@ describe 'POST registration', type: :request do
       expect(json[:data][:email]).to eq(params[:user][:email])
     end
   end
+
+  context 'with incorrect params, missing email' do
+    
+    let(:params) do {
+      user:
+        {
+          gender: 'Female',
+          password: 'abcd1234',
+          password_confirmation: 'abcd1234'
+        }
+      }
+    end
+
+    before { post user_registration_path, params: params, as: :json }
+
+    it 'returns error code' do
+      expect(response).to have_http_status(422)
+    end
+  end
+
 end

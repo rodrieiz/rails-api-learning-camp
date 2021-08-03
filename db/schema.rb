@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_07_31_175127) do
+=======
+ActiveRecord::Schema.define(version: 2021_07_29_213517) do
+>>>>>>> 1dfcae9880e1105ce6720c87f7e99ad8eb5e36a9
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "image"
@@ -22,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_07_31_175127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+=======
+>>>>>>> 1dfcae9880e1105ce6720c87f7e99ad8eb5e36a9
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false

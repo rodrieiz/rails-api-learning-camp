@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
-  # Validate params
-  validates :email, presence: true, uniqueness: true 
-  validates :gender, presence: true, inclusion: { in: ["Male","Female"]}
+  
+  validates :gender, presence: true, inclusion: { in: ["Male","Female"] }
 end
