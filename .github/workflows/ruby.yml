@@ -65,7 +65,7 @@ jobs:
         POSTGRES_USER: postgres
         POSTGRES_HOST: localhost
         RAILS_ENV: test
-      run: bundle exec rake: db:setup
+      run: bundle exec rake db:setup
       
     - name: Run Rspec tests
       run: bundle exec rspec
