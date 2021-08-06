@@ -1,0 +1,8 @@
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: github-actions-api
+  pool: 20
+  username: postgres
+  password: postgres
