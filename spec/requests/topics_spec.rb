@@ -2,18 +2,23 @@ require 'rails_helper'
 
 RSpec.describe 'api/topics', type: :request do
   describe 'GET /index' do
-    let!(:topic1) { build(:topic, name: 'Food', image: 'food.jpg') }
-    let!(:topic2) { build(:topic, name: 'Cars', image: 'cars.jpg') }
+    before do
+      @topic = create(:topic)
+      @user = build(:user)
+      @auth_headers = @user.create_new_auth_token
+      @auth_headers['uid'] = @user.email
+      get topics_url, headers: @auth_headers, as: :json
+    end
 
-    it 'renders a successful response' do
-      get topics_url, as: :json
+    it 'successful response' do
       expect(response).to be_successful
     end
 
-    it 'expeted 2 items' do
-      get topics_url, as: :json
+    it 'check topic' do
       pry
-      expect(response.body.length).to eq(2)
+      parsed = JSON.parse(response.body)
+      expect(parsed[0]['name']).to eq(@topic.name)
+      expect(parsed[0]['image']).to eq(@topic.image)
     end
   end
 end

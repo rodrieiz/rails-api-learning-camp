@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'POST registration', type: :request do
-    
+
   context 'with correct params' do
 
     let(:params) do {
@@ -29,7 +29,7 @@ describe 'POST registration', type: :request do
   end
 
   context 'with incorrect params, missing email' do
-    
+
     let(:params) do {
       user:
         {
