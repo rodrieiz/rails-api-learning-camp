@@ -77,4 +77,4 @@ jobs:
       with:
         exit_on_failure: true
       env:
-        GITHUB_TOKEN: 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
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
