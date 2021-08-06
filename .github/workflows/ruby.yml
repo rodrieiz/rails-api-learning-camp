@@ -71,3 +71,10 @@ jobs:
 
     - name: Run Rspec tests
       run: bundle exec rspec
+
+    - name: Rubocop Linter Action
+      uses: andrewmcodes/rubocop-linter-action@v3.3.0
+      with:
+        exit_on_failure: true
+      env:
+        GITHUB_TOKEN: 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
