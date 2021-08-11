@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'api/topics', type: :request do
   describe 'GET /index' do
+    let!(:user) { create(:user) }
     let!(:topic) { create(:topic) }
 
     before do
