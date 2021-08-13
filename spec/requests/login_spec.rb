@@ -14,7 +14,7 @@ RSpec.describe 'registraton', type: :request do
       before { post new_user_session_path, params: params, as: :json }
 
       it 'error status unathorized' do
-        expect(response).to have_http_status(401)
+        expect(response).to be_unauthorized
       end
 
       it 'invalid credentials' do
@@ -36,7 +36,7 @@ RSpec.describe 'registraton', type: :request do
     before { post new_user_session_path, params: params, as: :json }
 
     it 'ok status' do
-      expect(response).to have_http_status(200)
+      expect(response).to be_successful
     end
 
     it 'Check authorization headers' do
