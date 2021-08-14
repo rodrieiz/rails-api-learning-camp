@@ -14,9 +14,8 @@ RSpec.describe 'api/topics', type: :request do
     end
 
     it 'check topic' do
-      parsed = JSON.parse(response.body)
-      expect(parsed[0]['name']).to eq(topic.name)
-      expect(parsed[0]['image']).to eq(topic.image)
+      expect(json[0]['name']).to eq(topic.name)
+      expect(json[0]['image']).to eq(topic.image)
     end
   end
 end
