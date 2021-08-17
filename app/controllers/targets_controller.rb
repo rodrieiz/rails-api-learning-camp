@@ -12,5 +12,4 @@ class TargetsController < ApplicationController
   def target_params
     params.require(:target).permit(:title, :radius, :topic_id, :latitude, :longitude)
   end
-
 end
