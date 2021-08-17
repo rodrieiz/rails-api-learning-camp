@@ -24,11 +24,19 @@ RSpec.describe 'Targets', type: :request do
         expect(response).to be_successful
       end
 
-      it 'check target' do
+      it 'check target params in the response' do
         expect(json['title']).to eq(params[:target][:title])
         expect(json['radius'].to_f).to eq(params[:target][:radius])
         expect(json['latitude'].to_f).to eq(params[:target][:latitude])
         expect(json['longitude'].to_f).to eq(params[:target][:longitude])
+      end
+
+      it 'check target saved in db' do
+        expect(Target.count).to eq(1)
+        expect(Target.last.title).to eq(params[:target][:title])
+        expect(Target.last.radius).to eq(params[:target][:radius])
+        expect(Target.last.latitude).to eq(params[:target][:latitude])
+        expect(Target.last.longitude).to eq(params[:target][:longitude])
       end
     end
 
@@ -54,6 +62,10 @@ RSpec.describe 'Targets', type: :request do
 
       it 'check errors' do
         expect(json['errors']).to be_present
+      end
+
+      it 'check no targets in db' do
+        expect(Target.count).to eq(0)
       end
     end
   end
