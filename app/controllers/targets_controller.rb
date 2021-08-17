@@ -2,9 +2,12 @@ class TargetsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @target = Target.create(target_params)
-    @target.user = current_user
-    @target.save
+    @target = current_user.targets.create(target_params)
+    if @target.save
+      @target
+    else
+      render json: { errors: @target.errors }, status: :unprocessable_entity
+    end
   end
 
   private

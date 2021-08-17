@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   validates :gender, presence: true, inclusion: { in: %w[Male Female] }
+
+  has_many :targets
 end
