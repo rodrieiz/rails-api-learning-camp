@@ -69,4 +69,41 @@ RSpec.describe 'Targets', type: :request do
       end
     end
   end
+
+  describe 'GET /api/targets' do
+    context 'With valid user' do
+      let!(:user) { create(:user) }
+      let!(:topic) { create(:topic) }
+      let!(:target) { create(:target, topic_id: topic.id, user: user) }
+
+      before { get targets_url, headers: user_auth_headers, as: :json }
+
+      it 'successful response' do
+        expect(response).to be_successful
+      end
+
+      it 'check presence of created target' do
+        expect(json[0]['title']).to eq(target.title)
+        expect(json[0]['radius'].to_f).to eq(target.radius)
+        expect(json[0]['latitude'].to_f).to eq(target.latitude)
+        expect(json[0]['longitude'].to_f).to eq(target.longitude)
+        expect(json[0]['topic']['name']).to eq(topic.name)
+        expect(json[0]['topic']['image']).to eq(topic.image)
+      end
+    end
+  end
+
+  context 'not authenticated user' do
+    let!(:user) { create(:user) }
+
+    before { get targets_url, headers: {}, as: :json }
+
+    it 'status unauthorized' do
+      expect(response).to be_unauthorized
+    end
+
+    it 'error message' do
+      expect(json['errors']).to eq(['You need to sign in or sign up before continuing.'])
+    end
+  end
 end
