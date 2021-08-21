@@ -4,7 +4,6 @@ json.array! @targets do |target|
   json.latitude target.latitude
   json.longitude target.longitude
   json.topic do
-    json.name target.topic.name
-    json.image target.topic.image
+    json.partial! 'topics/topic', topic: target.topic
   end
 end
