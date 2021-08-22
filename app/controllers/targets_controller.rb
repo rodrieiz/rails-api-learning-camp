@@ -14,6 +14,11 @@ class TargetsController < ApplicationController
     @targets = current_user.targets
   end
 
+  def destroy
+    @target = Target.find(params[:id])
+    @target.destroy
+  end
+
   private
 
   def target_params
