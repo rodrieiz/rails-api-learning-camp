@@ -25,5 +25,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     gender { 'Female' }
     password { '123456' }
+    confirmed_at { DateTime.current }
   end
 end

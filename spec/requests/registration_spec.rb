@@ -10,7 +10,8 @@ describe 'POST registration', type: :request do
           gender: 'Female',
           password: 'abcd1234',
           password_confirmation: 'abcd1234'
-        }
+        },
+        confirm_success_url: '/'
       }
     end
 
