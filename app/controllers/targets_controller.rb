@@ -15,8 +15,12 @@ class TargetsController < ApplicationController
   end
 
   def destroy
-    @target = current_user.targets.find(params[:id])
-    @target.destroy
+    @target = current_user.targets.find_by(id: params[:id])
+    if @target.nil?
+      render json: { errors: 'Target not found' }, status: :not_found
+    else
+      @target.destroy
+    end
   end
 
   private
