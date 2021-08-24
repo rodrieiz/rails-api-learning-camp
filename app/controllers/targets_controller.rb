@@ -15,7 +15,7 @@ class TargetsController < ApplicationController
   end
 
   def destroy
-    @target = Target.find(params[:id])
+    @target = current_user.targets.find(params[:id])
     @target.destroy
   end
 
