@@ -10,6 +10,10 @@ class TargetsController < ApplicationController
     end
   end
 
+  def index
+    @targets = current_user.targets
+  end
+
   private
 
   def target_params

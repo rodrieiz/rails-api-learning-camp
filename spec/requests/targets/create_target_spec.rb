@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Targets', type: :request do
+  let!(:user) { create(:user) }
+  let!(:topic) { create(:topic) }
+
+  subject(:create_target) { post targets_url, params: params, headers: user_auth_headers, as: :json }
+
   describe 'POST /api/targets' do
     context 'With correct params' do
-      let!(:user) { create(:user) }
-      let!(:topic) { create(:topic) }
       let(:params) do
         {
           target:
@@ -18,54 +21,58 @@ RSpec.describe 'Targets', type: :request do
         }
       end
 
-      before { post targets_url, params: params, headers: user_auth_headers, as: :json }
-
-      it 'successful response' do
+      it 'returns a successful response' do
+        create_target
         expect(response).to be_successful
       end
 
       it 'check target params in the response' do
+        create_target
         expect(json['title']).to eq(params[:target][:title])
         expect(json['radius'].to_f).to eq(params[:target][:radius])
         expect(json['latitude'].to_f).to eq(params[:target][:latitude])
         expect(json['longitude'].to_f).to eq(params[:target][:longitude])
       end
 
+      it 'check number of targets increases by 1' do
+        expect { create_target }.to change { Target.count }.by(1)
+      end
+
       it 'check target saved in db' do
-        expect(Target.count).to eq(1)
-        expect(Target.last.title).to eq(params[:target][:title])
-        expect(Target.last.radius).to eq(params[:target][:radius])
-        expect(Target.last.latitude).to eq(params[:target][:latitude])
-        expect(Target.last.longitude).to eq(params[:target][:longitude])
+        create_target
+        @saved_target = Target.last
+        expect(@saved_target.title).to eq(params[:target][:title])
+        expect(@saved_target.radius).to eq(params[:target][:radius])
+        expect(@saved_target.latitude).to eq(params[:target][:latitude])
+        expect(@saved_target.longitude).to eq(params[:target][:longitude])
       end
     end
 
     context 'With incorrect params' do
-      let!(:user) { create(:user) }
       let(:params) do
         {
           target:
           {
-            title: 'Airports',
-            radius: 120,
-            latitude: 80,
-            longitude: 30
+            title: 'Cinema',
+            radius: 200,
+            latitude: 90,
+            longitude: 90
           }
         }
       end
 
-      before { post targets_url, params: params, headers: user_auth_headers, as: :json }
-
-      it 'bad response' do
+      it 'returns a bad response' do
+        create_target
         expect(response).to be_unprocessable
       end
 
       it 'check errors' do
+        create_target
         expect(json['errors']).to be_present
       end
 
-      it 'check no targets in db' do
-        expect(Target.count).to eq(0)
+      it 'check number of targets does not change' do
+        expect { create_target }.not_to change { Target.count }
       end
     end
   end
