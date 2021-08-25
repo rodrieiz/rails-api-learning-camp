@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'GET registration/confirmation', type: :request do
+RSpec.describe 'GET registration/confirmation', type: :request do
   let!(:user) { create(:user, confirmed_at: nil) }
   subject(:confirmation) { get user_confirmation_path, params: params, as: :json }
 
@@ -9,7 +9,7 @@ describe 'GET registration/confirmation', type: :request do
     let(:params) do
       {
         config: 'default',
-        token_confirmation: token,
+        confirmation_token: token,
         redirect_url: '/'
       }
     end

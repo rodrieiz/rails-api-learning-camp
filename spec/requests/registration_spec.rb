@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-describe 'POST registration', type: :request do
+RSpec.describe 'POST registration', type: :request do
   subject(:registration) { post user_registration_path, params: params, as: :json }
-  subject(:confirmation) { get user_confirmation_path, params: params, as: :json }
 
   context 'with correct params' do
     let(:params) do
