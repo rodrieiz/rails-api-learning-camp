@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe 'POST registration', type: :request do
+  subject(:registration) { post user_registration_path, params: params, as: :json }
+  subject(:confirmation) { get user_confirmation_path, params: params, as: :json }
+
   context 'with correct params' do
     let(:params) do
       {
@@ -15,16 +18,15 @@ describe 'POST registration', type: :request do
       }
     end
 
-    before { post user_registration_path, params: params, as: :json }
-
     it 'returns success' do
-      expect(response).to have_http_status(200)
+      registration
+      expect(response).to be_successful
     end
 
     it 'returns the user' do
-      json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:data][:gender]).to eq(params[:user][:gender])
-      expect(json[:data][:email]).to eq(params[:user][:email])
+      registration
+      expect(json['data']['gender']).to eq(params[:user][:gender])
+      expect(json['data']['email']).to eq(params[:user][:email])
     end
   end
 
@@ -40,10 +42,9 @@ describe 'POST registration', type: :request do
       }
     end
 
-    before { post user_registration_path, params: params, as: :json }
-
     it 'returns error code' do
-      expect(response).to have_http_status(422)
+      registration
+      expect(response).to be_unprocessable
     end
   end
 end

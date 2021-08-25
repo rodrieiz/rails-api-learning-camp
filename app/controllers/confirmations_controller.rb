@@ -3,7 +3,7 @@ class ConfirmationsController < DeviseTokenAuth::ConfirmationsController
     render json: {
       status: 200,
       success: true,
-      message: 'Your account has been confirmed'
+      message: I18n.t('confirmations.confirmed_account')
     }
   end
 end
