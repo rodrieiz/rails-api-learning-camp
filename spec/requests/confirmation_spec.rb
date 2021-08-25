@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'GET registration/confirmation', type: :request do
   let!(:user) { create(:user, confirmed_at: nil) }
-  subject(:confirmation) { get user_confirmation_path, params: params, as: :json }
+  subject(:confirmation) { get user_confirmation_path, params: params }
 
   context 'with correct params' do
     let(:token) { User.find_by(email: user.email).confirmation_token }
