@@ -4,6 +4,12 @@ class TargetsController < ApplicationController
   def create
     @target = current_user.targets.create(target_params)
     if @target.save
+      @possible_matches = Target.within(@target.radius, origin: @target)
+      @possible_matches = @possible_matches.where(@target.topic == :topic)
+      @possible_matches.each do |item|
+        Conversation.create(user1: User.find(item.user.id), user2: current_user) if item.user_id != current_user.id
+      end
+
       @target
     else
       render json: { errors: @target.errors }, status: :unprocessable_entity

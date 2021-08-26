@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
     resources :topics, only: [:index]
     resources :targets, only: [:create, :index, :destroy]
+    resources :conversations, only: [:index]
   end
 end
