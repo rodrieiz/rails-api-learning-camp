@@ -40,5 +40,4 @@ RSpec.describe 'DELETE /api/targets/:id', type: :request do
       expect(response).to be_unauthorized
     end
   end
-
 end

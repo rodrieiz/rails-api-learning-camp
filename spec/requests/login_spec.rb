@@ -19,7 +19,7 @@ RSpec.describe 'registraton', type: :request do
 
       it 'invalid credentials' do
         parsed = JSON.parse(response.body)
-        expect(parsed['errors']).to eq(['Invalid login credentials. Please try again.'])
+        expect(parsed['errors']).to include(I18n.t('devise_token_auth.sessions.bad_credentials'))
       end
     end
   end
