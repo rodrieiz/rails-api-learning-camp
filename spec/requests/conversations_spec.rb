@@ -4,7 +4,6 @@ RSpec.describe 'GET conversation/index', type: :request do
   let!(:user) { create(:user) }
   let!(:user2) { create(:user) }
   let!(:topic) { create(:topic) }
-  # let!(:target1) { create(:target, topic_id: topic.id, user: user, latitude: 90, longitude: 90) }
   let!(:target2) { create(:target, topic_id: topic.id, user: user2, latitude: 90, longitude: 90) }
   let!(:target3) { create(:target, topic_id: topic.id, user: user2, latitude: 5, longitude: 5) }
 
