@@ -12,5 +12,10 @@ class Conversation < ApplicationRecord
   belongs_to :user1, class_name: 'User', foreign_key: 'user1'
   belongs_to :user2, class_name: 'User', foreign_key: 'user2'
 
-  validates_uniqueness_of :user1, scope: %i[user2]
+  validates :user1, uniqueness: { scope: :user2 }
+  validate :user1_distint_of_user2
+
+  def user1_distint_of_user2
+    errors.add(:user2, 'user1 and user2 must be differents') if user1 == user2
+  end
 end

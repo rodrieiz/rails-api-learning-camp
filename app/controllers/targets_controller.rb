@@ -3,9 +3,9 @@ class TargetsController < ApplicationController
     @target = current_user.targets.create(target_params)
     if @target.save
       @possible_matches = Target.within(@target.radius, origin: @target)
-      @possible_matches = @possible_matches.where(@target.topic == :topic)
+      @possible_matches = @possible_matches.where(@target.topic == :topic).where.not(user: current_user)
       @possible_matches.each do |item|
-        Conversation.create(user1: User.find(item.user.id), user2: current_user) if item.user_id != current_user.id
+        Conversation.create(user1: User.find(item.user.id), user2: current_user)
       end
 
       @target
