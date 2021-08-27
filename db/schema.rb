@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_140338) do
     t.integer "user2", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user1", "user2"], name: "index_conversations_on_user1_and_user2", unique: true
   end
 
   create_table "targets", force: :cascade do |t|

@@ -16,6 +16,6 @@ class Conversation < ApplicationRecord
   validate :user1_distint_of_user2
 
   def user1_distint_of_user2
-    errors.add(:user2, 'user1 and user2 must be differents') if user1 == user2
+    errors.add(:user2, I18n.t('validations.conversation_users')) if user1 == user2
   end
 end

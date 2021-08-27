@@ -32,3 +32,6 @@
 en:
   confirmations:
     confirmed_account: 'Your account has been confirmed'
+  validations:
+    conversation_users: 'user1 and user2 must be differents'
+
