@@ -12,8 +12,8 @@ require 'rails_helper'
 
 RSpec.describe Conversation, type: :model do
   let(:user) { create(:user) }
-  # let(:conversation) { create(:conversation, user1: user, user2: user) }
   subject { build(:conversation) }
+
   it { should belong_to(:user1) }
   it { should belong_to(:user2) }
 
