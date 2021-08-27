@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'POST /api/targets', type: :request do
   let!(:user) { create(:user) }
+  let!(:user2) { create(:user) }
+  let!(:user3) { create(:user) }
   let!(:topic) { create(:topic) }
+  let!(:target1) { create(:target, topic_id: topic.id, user: user2, latitude: 0, longitude: 0) }
+  let!(:target2) { create(:target, topic_id: topic.id, user: user3, latitude: 0, longitude: 0) }
 
   subject(:create_target) { post targets_url, params: params, headers: user_auth_headers, as: :json }
 
@@ -14,8 +18,8 @@ RSpec.describe 'POST /api/targets', type: :request do
           title: 'Cinema',
           radius: 200,
           topic_id: topic.id,
-          latitude: 90,
-          longitude: 90
+          latitude: 0,
+          longitude: 0
         }
       }
     end
@@ -44,6 +48,10 @@ RSpec.describe 'POST /api/targets', type: :request do
       expect(saved_target.radius).to eq(params[:target][:radius])
       expect(saved_target.latitude).to eq(params[:target][:latitude])
       expect(saved_target.longitude).to eq(params[:target][:longitude])
+    end
+
+    it 'create a match' do
+      expect { create_target }.to change { Conversation.count }.by(2)
     end
   end
 
