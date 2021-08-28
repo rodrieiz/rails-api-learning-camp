@@ -34,4 +34,5 @@ en:
     confirmed_account: 'Your account has been confirmed'
   validations:
     conversation_users: 'user1 and user2 must be differents'
+    message_invalid_atributes: 'Conversation not found or is not associated to the signed user'
 
