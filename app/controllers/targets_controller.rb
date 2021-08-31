@@ -1,9 +1,8 @@
 class TargetsController < ApplicationController
-  before_action :authenticate_user!
-
   def create
     @target = current_user.targets.create(target_params)
     if @target.save
+      @matches = FindMatch.new(@target, current_user).search
       @target
     else
       render json: { errors: @target.errors }, status: :unprocessable_entity
