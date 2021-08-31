@@ -17,9 +17,15 @@ RSpec.describe Conversation, type: :model do
   it { should belong_to(:user1) }
   it { should belong_to(:user2) }
 
-  it 'do not create a conversation ' do
+  it 'do not create a conversation' do
     conversation = Conversation.new(user1: user, user2: user)
     conversation.validate
     expect(conversation.errors).to be_present
+  end
+
+  it 'check error message' do
+    conversation = Conversation.new(user1: user, user2: user)
+    conversation.validate
+    expect(conversation.errors.messages[:user2]).to include(I18n.t('validations.conversation_users'))
   end
 end
