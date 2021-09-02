@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       sessions: 'sessions'
     }
 
+  mount ActionCable.server => "/cable"
+
   scope :api, defaults: { format: :json } do
     resources :topics, only: [:index]
     resources :targets, only: [:create, :index, :destroy]
