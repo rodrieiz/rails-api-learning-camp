@@ -11,6 +11,7 @@
 class Conversation < ApplicationRecord
   belongs_to :user1, class_name: 'User', foreign_key: 'user1'
   belongs_to :user2, class_name: 'User', foreign_key: 'user2'
+  has_many :messages
 
   validates :user1, uniqueness: { scope: :user2 }
   validate :user1_distinct_of_user2
