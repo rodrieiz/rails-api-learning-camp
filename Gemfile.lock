@@ -129,6 +129,7 @@ GEM
     nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (3.14.0)
     parallel (1.20.1)
     parser (3.0.2.0)
       ast (~> 2.4.1)
@@ -252,6 +253,7 @@ DEPENDENCIES
   geokit-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  pagy (~> 3.5)
   pg
   pry
   puma (~> 5.0)
