@@ -13,8 +13,7 @@ RSpec.describe 'GET /messages', type: :request do
     let(:headers) { user_auth_headers }
     let(:params) do
       {
-        limit: 10,
-        offset: 0,
+        offset: 1,
         conversation_id: conversation.id
       }
     end
@@ -26,7 +25,7 @@ RSpec.describe 'GET /messages', type: :request do
 
     it 'check items attrubutes in the response' do
       list_messages
-      expect(json.size).to eq(10)
+      expect(json['messages'].size).to eq(25)
     end
   end
 
@@ -34,8 +33,7 @@ RSpec.describe 'GET /messages', type: :request do
     let(:headers) { user_auth_headers }
     let(:params) do
       {
-        limit: 10,
-        offset: 0,
+        offset: 1,
         conversation_id: conversation_aux.id
       }
     end
@@ -55,8 +53,7 @@ RSpec.describe 'GET /messages', type: :request do
     let(:headers) {}
     let(:params) do
       {
-        limit: 10,
-        offset: 0,
+        offset: 1,
         conversation_id: conversation.id
       }
     end

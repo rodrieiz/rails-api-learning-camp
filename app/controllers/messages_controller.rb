@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   def index
     @conversation = Conversation.find(params[:conversation_id])
     if @conversation && (current_user == @conversation.user1 || current_user == @conversation.user2)
-      @messages = @conversation.messages.limit(max_items_page).offset(params[:offset])
+      @pagy, @messages = pagy(@conversation.messages, page: params[:offset])
     else
       render json: { errors: I18n.t('validations.message_invalid_atributes') }, status: :not_found
     end
@@ -22,10 +22,5 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:message, :conversation_id)
-  end
-
-  def max_items_page
-    limit = Integer(params[:limit])
-    limit <= 20 ? limit : 20
   end
 end
